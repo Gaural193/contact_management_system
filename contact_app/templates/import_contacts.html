@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Import Contacts{% endblock %}
+
+{% block content %}
+    <h1>Import Contacts</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="vcf_file" accept=".vcf" required>
+        <button type="submit">Import</button>
+    </form>
+    <a href="{% url 'contact_list' %}">Back to Contact List</a>
+{% endblock %}

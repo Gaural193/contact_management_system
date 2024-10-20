@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Export Contacts{% endblock %}
+
+{% block content %}
+    <h1>Export Contacts</h1>
+    <p>
+        <a href="{% url 'export_contacts' %}">Download Contacts as VCF</a>
+    </p>
+    <a href="{% url 'contact_list' %}">Back to Contact List</a>
+{% endblock %}

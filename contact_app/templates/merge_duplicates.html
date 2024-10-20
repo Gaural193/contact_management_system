@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Merge Duplicates{% endblock %}
+
+{% block content %}
+    <h1>Merge Duplicate Contacts</h1>
+    <form method="POST" action="{% url 'merge_duplicates' %}">
+        {% csrf_token %}
+        
+        <!-- Loop through duplicate contacts and display them -->
+        <label for="contact1">Select First Contact to Merge</label>
+        <select name="contact1_id" id="contact1">
+            {% for contact in duplicates %}
+            <option value="{{ contact.id }}">{{ contact.first_name }} - {{ contact.email }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="contact2">Select Second Contact to Merge</label>
+        <select name="contact2_id" id="contact2">
+            {% for contact in duplicates %}
+            <option value="{{ contact.id }}">{{ contact.first_name }} - {{ contact.email }}</option>
+            {% endfor %}
+        </select>
+    
+        <button type="submit">Merge Contacts</button>
+    </form>
+    
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    <a href="{% url 'contact_list' %}">Back to Contact List</a>
+{% endblock %}

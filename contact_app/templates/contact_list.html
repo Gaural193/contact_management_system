@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact List{% endblock %}
+
+{% block content %}
+    <h1>Contact List</h1>
+
+    <!-- Search form -->
+    <form method="GET" action="{% url 'contact_list' %}">
+        <input type="text" name="q" placeholder="Search contacts">
+        <button type="submit">Search</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Tags</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.first_name }} {{ contact.last_name }}</td>
+                <td>{{ contact.phone_number }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.tags }}</td>
+                <td>
+                    <a href="{% url 'contact_edit' contact.id %}">Edit</a> |
+                    <a href="{% url 'contact_delete' contact.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <!-- <tr>
+                <td colspan="5">No contacts found.</td>
+            </tr> -->
+            <ul>
+                {% for contact in contacts %}
+                    <li>{{ contact.first_name }} - {{ contact.email }} - {{ contact.phone_number }}</li>
+                {% empty %}
+                    <li>No contacts found.</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
